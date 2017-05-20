@@ -19,9 +19,34 @@ namespace cp
 
         api::~api()
         {
-            clReleaseProgram(program);
-            clReleaseCommandQueue(queue);
-            clReleaseContext(context);
+            clReleaseProgram(m_program);
+            clReleaseCommandQueue(m_queue);
+            clReleaseContext(m_context);
+        }
+
+        cl_platform_id api::platform_id()
+        {
+            return m_platform_id;
+        }
+
+        cl_device_id api::device()
+        {
+            return m_device;
+        }
+
+        cl_context api::context()
+        {
+            return m_context;
+        }
+
+        cl_command_queue api::queue()
+        {
+            return m_queue;
+        }
+
+        cl_program api::program()
+        {
+            return m_program;
         }
 
         void api::get_device_id(cl_device_type device_type)
@@ -36,15 +61,15 @@ namespace cp
 
             for (cl_uint i = 0; i < id_count; ++i)
             {
-                status = clGetDeviceIDs(platform_ids[i], device_type, 1, &device, nullptr);
-                platform_id = platform_ids[i];
+                status = clGetDeviceIDs(platform_ids[i], device_type, 1, &m_device, nullptr);
+                m_platform_id = platform_ids[i];
                 if (status == CL_SUCCESS)
                 {
                     break;
                 }
             }
 
-            if (device == nullptr)
+            if (m_device == nullptr)
             {
                 CP_ERROR("Could not set device id, error: %s", get_error(status));
             }
@@ -53,7 +78,7 @@ namespace cp
         void api::create_context()
         {
             cl_int status;
-            context = clCreateContext(nullptr, 1, &device, nullptr, nullptr, &status);
+            m_context = clCreateContext(nullptr, 1, &m_device, nullptr, nullptr, &status);
 
             if (status != CL_SUCCESS)
             {
@@ -66,13 +91,13 @@ namespace cp
 
             cl_int error;
 #ifdef _MSC_VER
-            queue = clCreateCommandQueue(context, device, 0, &error);
+            m_queue = clCreateCommandQueue(m_context, m_device, 0, &error);
 #else
-            queue = clCreateCommandQueueWithProperties(context, device, nullptr, &error);
+            m_queue = clCreateCommandQueueWithProperties(m_context, m_device, nullptr, &error);
 #endif
             if (error != CL_SUCCESS)
             {
-                clReleaseContext(context);
+                clReleaseContext(m_context);
                 CP_ERROR("Could not create command queue, error: %s", get_error(error));
             }
 
@@ -85,13 +110,13 @@ namespace cp
 
             if (source == nullptr)
             {
-                clReleaseCommandQueue(queue);
-                clReleaseContext(context);
+                clReleaseCommandQueue(m_queue);
+                clReleaseContext(m_context);
                 CP_ERROR("Failed to read program");
             }
 
             cl_int build_error;
-            program = clCreateProgramWithSource(context, 1,
+            m_program = clCreateProgramWithSource(m_context, 1,
                                                 const_cast<const char**>(&source),
                                                 nullptr,
                                                 &build_error);
@@ -100,14 +125,14 @@ namespace cp
 
             if (build_error != CL_SUCCESS)
             {
-                clReleaseCommandQueue(queue);
-                clReleaseContext(context);
+                clReleaseCommandQueue(m_queue);
+                clReleaseContext(m_context);
                 CP_WARN("Could not create program, error: %s", get_error(build_error));
 
             }
 
-            build_error = clBuildProgram(program, 1,
-                                         &device, arguments,
+            build_error = clBuildProgram(m_program, 1,
+                                         &m_device, arguments,
                                          nullptr, nullptr);
 
             if (build_error != CL_SUCCESS)
@@ -115,8 +140,8 @@ namespace cp
                 size_t length = 0;
                 char buffer[2048];
 
-                cl_int error = clGetProgramBuildInfo(program,
-                                                     device,
+                cl_int error = clGetProgramBuildInfo(m_program,
+                                                     m_device,
                                                      CL_PROGRAM_BUILD_LOG,
                                                      sizeof(buffer),
                                                      buffer,
@@ -127,15 +152,14 @@ namespace cp
                     CP_WARN("Could not create program, error: %s", get_error(error));
                 }
 
-                clReleaseCommandQueue(queue);
-                clReleaseContext(context);
-                clReleaseProgram(program);
+                clReleaseCommandQueue(m_queue);
+                clReleaseContext(m_context);
+                clReleaseProgram(m_program);
                 CP_ERROR("Could not build program, error: %s\nBuild info: %s", 
                          get_error(build_error), 
                          buffer);
 
             }
         }
-
     }
 }
