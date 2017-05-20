@@ -1,0 +1,19 @@
+
+// Claus:
+// - Basic opencl functionality:
+//      - Find device
+//          - Find platform
+//          - Query platform for device
+//      - Setup Context
+//      - Create queue
+// - Program
+//      - Kernels
+//
+// - Main Points:
+//      - Proper Cleanup - Destructor
+//      - API Wrapper: Context, queue, device.
+//      - RAII Wrapper: memory objects.
+//
+// PMS:
+// - Read and write image to file
+//
