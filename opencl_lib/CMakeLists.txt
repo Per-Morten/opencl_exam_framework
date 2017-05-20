@@ -9,6 +9,8 @@ include_directories(opencl_lib
 )
 
 add_library(opencl_lib
+	opencl_utility.h
+	opencl_utility.cpp
 )
 
 target_link_libraries(opencl_lib
