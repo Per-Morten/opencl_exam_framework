@@ -11,7 +11,7 @@ CP_EXTERN_CPP_BEGIN
 #include <CL/cl.h>
 #include <stdio.h>
 #include <stdarg.h>
-
+#include <stdlib.h>
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Used to stop sdl from defining main, as that sometimes leads
 ///        to issues.
@@ -78,6 +78,7 @@ _Pragma("GCC diagnostic pop")
 ///////////////////////////////////////////////////////////////////////////////
 #define CP_ERROR(fmt, ...) \
 cp_log(stdout, "ERROR", __FILE__, __func__, __LINE__, fmt, ##__VA_ARGS__); \
+cp_log_shutdown(); \
 exit(EXIT_FAILURE);
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -115,13 +116,13 @@ cp_log(stdout, "DEBUG", __FILE__, __func__, __LINE__, fmt, ##__VA_ARGS__);
 /// \brief Constant value used to indicate failure of a function to do it's
 ///        work.
 ///////////////////////////////////////////////////////////////////////////////
-#define CP_FAILURE 0
+#define CP_FAILURE 1
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Constant value used to indicate success of a function to do it's
 ///        work.
 ///////////////////////////////////////////////////////////////////////////////
-#define CP_SUCCESS 1
+#define CP_SUCCESS 0
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Function used for logging to the specified output.
