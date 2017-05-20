@@ -39,6 +39,18 @@ CP_EXTERN_CPP_BEGIN
 #endif
 
 #if defined(_MSC_VER)
+#define CP_INPUT_PAUSE system("pause");
+#else
+#define CP_INPUT_PAUSE getc(stdin);
+#endif
+
+#if defined(_MSC_VER)
+#define CP_TERMINAL_PAUSE system("pause");
+#else
+#define CP_TERMINAL_PAUSE
+#endif
+
+#if defined(_MSC_VER)
 #define CP_PUSH_WARNING_DEPRECATED \
 _Pragma("warning(push)");           \
 _Pragma("warning(disable:4996)");
