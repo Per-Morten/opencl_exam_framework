@@ -1,0 +1,11 @@
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/CMakeFiles/edit_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/CMakeFiles/rebuild_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/cp_lib/CMakeFiles/edit_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/cp_lib/CMakeFiles/rebuild_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/cp_lib/CMakeFiles/cp_lib.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/opencl_lib/CMakeFiles/edit_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/opencl_lib/CMakeFiles/rebuild_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/opencl_lib/CMakeFiles/opencl_lib.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/hough_transform/CMakeFiles/edit_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/hough_transform/CMakeFiles/rebuild_cache.dir
+/home/per-morten/School/ntnu/6th_semester/imt3612_gpu_programming/opencl_exam_framework/build/hough_transform/CMakeFiles/hough_transform.dir

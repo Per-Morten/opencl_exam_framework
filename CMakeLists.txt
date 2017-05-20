@@ -1,0 +1,52 @@
+cmake_minimum_required (VERSION 2.6)
+project (opencl_exam_practice)
+
+set(CP_STANDARD_INCLUDES "")
+set(CP_STANDARD_LINKS "")
+
+INCLUDE(CMakeForceCompiler)
+
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+    set(CP_STANDARD_INCLUDES ${CP_STANDARD_INCLUDES} /opt/intel/opencl-1.2-sdk-6.3.0.1904/include/)
+    set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} SDL2)
+    set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} OpenCL)
+    set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} m)
+    set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} pthread)
+    #set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} libstdc++)
+else()
+    set(CP_STANDARD_INCLUDES ${CP_STANDARD_INCLUDES} C:\\Program\ Files\\NVIDIA\ GPU\ Computing\ Toolkit\\CUDA\\v8.0\\include)
+    set(CP_STANDARD_INCLUDES ${CP_STANDARD_INCLUDES} $ENV{SDL_HOME}\\include)
+    set(CP_STANDARD_INCLUDES ${CP_STANDARD_INCLUDES} $ENV{PTHREAD_HOME}\\include)
+    set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} C:\\Program\ Files\\NVIDIA\ GPU\ Computing\ Toolkit\\CUDA\\v8.0\\lib\\Win32\\OpenCL.lib)
+    set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} $ENV{SDL_HOME}\\lib\\SDL2.lib)
+    set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} $ENV{PTHREAD_HOME}\\lib\\x86\\pthreadVC2.lib)
+endif()
+
+include_directories("${PROJECT_BINARY_DIR}"
+                    "${CMAKE_SOURCE_DIR}/cp_lib"
+                    "${CMAKE_SOURCE_DIR}/opencl_lib"
+                    "${CP_STANDARD_INCLUDES}")
+
+
+set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+    set(C_FLAGS "-DCP_DEBUG_ON -Wall -Wextra -W -std=c11 -Ofast")
+    set(CXX_FLAG "-DCP_DEBUG_ON -Wall -Wextra -std=c++14 -Ofast")
+    set(DEBUG_FLAGS "-O0 -g3")
+else()
+	set(CXX_FLAG "/DCP_DEBUG_ON /D_TIMESPEC_DEFINED")
+    # TODO: Find out what options to do here
+endif()
+
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} ${C_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${C_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_FLAG}")
+
+subdirs(
+    cp_lib
+    opencl_lib
+    hough_transform
+)
+

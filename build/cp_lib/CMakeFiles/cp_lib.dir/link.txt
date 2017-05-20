@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcp_lib.a  CMakeFiles/cp_lib.dir/cp_log.c.o CMakeFiles/cp_lib.dir/cp_clock.cpp.o
+/usr/bin/ranlib libcp_lib.a

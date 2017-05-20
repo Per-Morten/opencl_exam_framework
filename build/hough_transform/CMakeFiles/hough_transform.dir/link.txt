@@ -1,0 +1,1 @@
+/usr/bin/c++    -DCP_DEBUG_ON -Wall -Wextra -std=c++14 -Ofast   CMakeFiles/hough_transform.dir/main.cpp.o  -o ../bin/hough_transform -rdynamic -lSDL2 -lOpenCL -lm -lpthread ../cp_lib/libcp_lib.a -lSDL2 -lOpenCL -lm -lpthread 
