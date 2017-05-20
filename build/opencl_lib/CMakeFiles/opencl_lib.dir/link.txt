@@ -1,2 +1,0 @@
-/usr/bin/ar qc libopencl_lib.a  
-/usr/bin/ranlib libopencl_lib.a
