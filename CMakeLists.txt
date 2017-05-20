@@ -12,7 +12,6 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} OpenCL)
     set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} m)
     set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} pthread)
-    #set(CP_STANDARD_LINKS ${CP_STANDARD_LINKS} libstdc++)
 else()
     set(CP_STANDARD_INCLUDES ${CP_STANDARD_INCLUDES} C:\\Program\ Files\\NVIDIA\ GPU\ Computing\ Toolkit\\CUDA\\v8.0\\include)
     set(CP_STANDARD_INCLUDES ${CP_STANDARD_INCLUDES} $ENV{SDL_HOME}\\include)
@@ -25,6 +24,7 @@ endif()
 include_directories("${PROJECT_BINARY_DIR}"
                     "${CMAKE_SOURCE_DIR}/cp_lib"
                     "${CMAKE_SOURCE_DIR}/opencl_lib"
+                    "${CMAKE_SOURCE_DIR}/third_party"
                     "${CP_STANDARD_INCLUDES}")
 
 
@@ -48,5 +48,6 @@ subdirs(
     cp_lib
     opencl_lib
     hough_transform
+    third_party
 )
 
