@@ -21,7 +21,8 @@ cp::load_image(const char* filepath)
     const auto err_c = lodepng::decode(pixels,
                                        width,
                                        height,
-                                       filepath);
+                                       filepath,
+                                       LCT_RGB);
 
     if (err_c)
     {
@@ -45,7 +46,8 @@ cp::write_image(const char* filepath,
         lodepng::encode(filepath,
                         image.pixels,
                         static_cast<unsigned>(image.width),
-                        static_cast<unsigned>(image.height));
+                        static_cast<unsigned>(image.height),
+                        LCT_RGB);
 
     if (err_c)
     {

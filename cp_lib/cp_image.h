@@ -20,13 +20,14 @@ namespace cp
     ///////////////////////////////////////////////////////
     struct image
     {
+        image() = default;
         image(const std::vector<std::uint8_t>& pixels,
               std::uint32_t height,
               std::uint32_t width);
 
-        std::vector<std::uint8_t> pixels;
-        std::uint32_t height;
-        std::uint32_t width;
+        std::vector<std::uint8_t> pixels{};
+        std::uint32_t height{};
+        std::uint32_t width{};
     };
 
     ///////////////////////////////////////////////////////
