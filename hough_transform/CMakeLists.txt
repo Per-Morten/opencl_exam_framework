@@ -16,4 +16,5 @@ add_executable(hough_transform
 target_link_libraries(hough_transform
     ${CP_STANDARD_LINKS}
     cp_lib
+    opencl_lib
 )
