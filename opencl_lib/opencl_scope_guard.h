@@ -23,7 +23,7 @@ namespace cp
             scope_guard& operator=(const scope_guard&) = delete;
 
             scope_guard(const scope_guard&& rhs)
-                : m_data(rhs.data)
+                : m_data(rhs.m_data)
             {
                 rhs.data = nullptr;
             }
@@ -33,8 +33,8 @@ namespace cp
                 if (this != &rhs)
                 {
                     Destructor()(m_data);
-                    m_data = rhs.data;
-                    rhs.data = nullptr;
+                    m_data = rhs.m_data;
+                    rhs.m_data = nullptr;
                 }
 
                 return *this;
