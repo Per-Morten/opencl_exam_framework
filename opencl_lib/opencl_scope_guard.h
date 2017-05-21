@@ -22,13 +22,13 @@ namespace cp
             scope_guard(const scope_guard&) = delete;
             scope_guard& operator=(const scope_guard&) = delete;
 
-            scope_guard(const scope_guard&& rhs)
+            scope_guard(scope_guard&& rhs)
                 : m_data(rhs.m_data)
             {
-                rhs.data = nullptr;
+                rhs.m_data = nullptr;
             }
 
-            scope_guard& operator=(const scope_guard&& rhs)
+            scope_guard& operator=(scope_guard&& rhs)
             {
                 if (this != &rhs)
                 {
@@ -45,7 +45,7 @@ namespace cp
                 Destructor()(m_data);
             }
 
-            T data()
+            const T& data() const
             {
                 return m_data;
             }
