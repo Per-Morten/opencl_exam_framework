@@ -1,4 +1,5 @@
 #include <opencl_api.h>
+
 #include <cp_lib.h>
 #include <opencl_utility.h>
 
@@ -117,9 +118,9 @@ namespace cp
 
             cl_int build_error;
             m_program = clCreateProgramWithSource(m_context, 1,
-                                                const_cast<const char**>(&source),
-                                                nullptr,
-                                                &build_error);
+                                                  const_cast<const char**>(&source),
+                                                  nullptr,
+                                                  &build_error);
 
             free(source);
 
@@ -155,8 +156,8 @@ namespace cp
                 clReleaseCommandQueue(m_queue);
                 clReleaseContext(m_context);
                 clReleaseProgram(m_program);
-                CP_ERROR("Could not build program, error: %s\nBuild info: %s", 
-                         get_error(build_error), 
+                CP_ERROR("Could not build program, error: %s\nBuild info: %s",
+                         get_error(build_error),
                          buffer);
 
             }

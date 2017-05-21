@@ -8,9 +8,13 @@ namespace cp
     {
         class api
         {
-        public: 
+        public:
             api() = delete;
-            api(cl_device_type device_type, const char* program_filepath, const char* arguments);
+
+            api(cl_device_type device_type,
+                const char* program_filepath,
+                const char* arguments);
+
             ~api();
 
             cl_platform_id platform_id();
@@ -18,12 +22,13 @@ namespace cp
             cl_context context();
             cl_command_queue queue();
             cl_program program();
-            
+
         private:
             void get_device_id(cl_device_type device_type);
             void create_context();
             void create_command_queue();
-            void create_program(const char* program_filepath, const char* arguments);
+            void create_program(const char* program_filepath,
+                                const char* arguments);
 
 
             cl_platform_id m_platform_id{};
