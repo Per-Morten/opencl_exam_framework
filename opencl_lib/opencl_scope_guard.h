@@ -55,7 +55,6 @@ namespace cp
 
         };
 
-        // We were not allowed to use lambdas,
         namespace opencl_wrapper_impl
         {
             struct kernel_destructor
