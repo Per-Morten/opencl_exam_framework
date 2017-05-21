@@ -1,5 +1,5 @@
 #pragma once
-#include <CL\cl.h>
+#include <CL/cl.h>
 
 namespace cp
 {
@@ -13,6 +13,5 @@ namespace cp
         long int file_size(const char* path);
 
         char* read_program(const char* path);
-
     }
 }
