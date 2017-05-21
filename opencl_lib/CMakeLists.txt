@@ -13,6 +13,7 @@ add_library(opencl_lib
     opencl_api.cpp
     opencl_utility.h
     opencl_utility.cpp
+    opencl_scope_guard.h
 )
 
 target_link_libraries(opencl_lib

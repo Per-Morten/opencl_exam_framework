@@ -1,5 +1,6 @@
 #pragma once
 #include <CL/cl.h>
+#include <opencl_scope_guard.h>
 
 namespace cp
 {
