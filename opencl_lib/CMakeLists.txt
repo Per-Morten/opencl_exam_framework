@@ -9,9 +9,24 @@ include_directories(opencl_lib
 )
 
 add_library(opencl_lib
+    opencl_api.h
+    opencl_api.cpp
+    opencl_utility.h
+    opencl_utility.cpp
+    opencl_scope_guard.h
 )
 
 target_link_libraries(opencl_lib
     ${CP_STANDARD_LINKS}
     cp_lib
+)
+
+add_executable(opencl_lib_test
+    main.cpp
+)
+
+target_link_libraries(opencl_lib_test
+    ${CP_STANDARD_LINKS}
+    cp_lib
+    opencl_lib
 )
