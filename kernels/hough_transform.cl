@@ -29,17 +29,16 @@ __kernel void hough_transform(__global const uint8_t* image,
 
     for (size_t i = 0; i < STEP_AMOUNT; i++)
     {
-        const float rad_angle = (float)i * STEP_SIZE;
-        //const float rad_angle = radians((float)i);
+        const float rad_angle = i * STEP_SIZE;
 
         const float c = -x_pos * cos(rad_angle) - y_pos * sin(rad_angle);
 
-        const float dist = fabs(0.0f + 0.0f + c) /
+        const float dist = fabs(c) /
                                 sqrt(pow(cos(rad_angle), 2.0f) +
                                      pow(sin(rad_angle), 2.0f));
 
-        angles[i] = (int32_t)degrees(rad_angle);
-        distances[i] = (int32_t)dist;
+        angles[i] = round(degrees(rad_angle));
+        distances[i] = round(dist);
 
 
         //printf("x: %5.2f, y: %5.2f, angle: %5.2f, dist: %5.2f\n",
@@ -58,11 +57,9 @@ __kernel void create_hough_space(__global uint8_t* image,
                                  __global const int32_t* distances,
                                  __global const int32_t* angles)
 {
-    size_t image_pos = get_global_id(0) * 3;
-
     size_t id = get_global_id(0);
-    size_t x_pos = id % width;
-    size_t y_pos = id / width;
+    int32_t x_pos = id % width;
+    int32_t y_pos = id / width;
 
     size_t pixel_count = get_global_size(0);
 
@@ -74,7 +71,7 @@ __kernel void create_hough_space(__global uint8_t* image,
             if (distances[i + j] == y_pos &&
                 angles[i + j] == x_pos)
             {
-                if (match != 255)
+                if (match < 255)
                 {
                     ++match;
                 }
@@ -82,24 +79,19 @@ __kernel void create_hough_space(__global uint8_t* image,
         }
     }
 
+    size_t image_pos = get_global_id(0) * 3;
 
     if (match > 0)
     {
         //printf("%zu\n", (size_t)match);
-        image[image_pos + 0] = match + 100;
-        image[image_pos + 1] = match + 100;
-        image[image_pos + 2] = match + 100;
+        image[image_pos + 0] = match * 10;
+        image[image_pos + 1] = match * 10;
+        image[image_pos + 2] = match * 10;
+    }
+
+    if (match > 100)
+    {
+        printf("x: %d, y: %d\n", x_pos, y_pos);
     }
 
 }
-
-
-// kernel 1:
-//  if datapoint:
-//      for each angle
-//          plot distance from line to origin
-//              save dist and angle
-//
-// kernel 2:
-//  if datapoint
-//
