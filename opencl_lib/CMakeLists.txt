@@ -14,6 +14,7 @@ add_library(opencl_lib
     opencl_utility.h
     opencl_utility.cpp
     opencl_scope_guard.h
+    opencl_utility.tpp
 )
 
 target_link_libraries(opencl_lib
