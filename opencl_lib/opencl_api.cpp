@@ -89,19 +89,39 @@ namespace cp
 
         void api::create_command_queue()
         {
+            char buffer[1024];
+            cl_int error = clGetPlatformInfo(m_platform_id,
+                                             CL_PLATFORM_VERSION,
+                                             sizeof(buffer),
+                                             buffer,
+                                             nullptr);
 
-            cl_int error;
-#ifdef _MSC_VER
-            m_queue = clCreateCommandQueue(m_context, m_device, 0, &error);
-#else
-            m_queue = clCreateCommandQueueWithProperties(m_context, m_device, nullptr, &error);
-#endif
             if (error != CL_SUCCESS)
             {
                 clReleaseContext(m_context);
-                CP_ERROR("Could not create command queue, error: %s", get_error(error));
+                CP_ERROR("Could not get platform info, error: %s",
+                         get_error(error));
             }
 
+            int32_t version[2] = {0};
+            sscanf(buffer,"OpenCL %d.%d", &version[0], &version[1]);
+
+        CP_PUSH_WARNING_DEPRECATED
+        #ifdef _MSC_VER
+            m_queue = clCreateCommandQueue(m_context, m_device, 0, &error);
+        #else
+            m_queue = (version[0] == 2)
+                       ? clCreateCommandQueueWithProperties(m_context, m_device, NULL, &error)
+                       : clCreateCommandQueue(m_context, m_device, 0, &error);
+        #endif
+        CP_POP_WARNING
+
+            if (error != CL_SUCCESS)
+            {
+                clReleaseContext(m_context);
+                CP_ERROR("Could not create command queue, error: %s",
+                         get_error(error));
+            }
         }
 
         void api::create_program(const char* program_filepath,
