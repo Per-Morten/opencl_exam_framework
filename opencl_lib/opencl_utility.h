@@ -22,7 +22,7 @@ namespace cp
         ///////////////////////////////////////////////////
         template<class Create_Func, class... Args>
         decltype(auto)
-        create_resource(Create_Func func, Args... args);
+        create_resource(Create_Func func, Args&&... args);
 
         ///////////////////////////////////////////////////
         /// \brief Invokes an OpenCL function and does
@@ -31,7 +31,7 @@ namespace cp
         ///////////////////////////////////////////////////
         template<class Opencl_Func, class... Args>
         void
-        invoke(Opencl_Func func, Args... args);
+        invoke(Opencl_Func func, Args&&... args);
     }
 }
 
