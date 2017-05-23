@@ -169,7 +169,7 @@ main(CP_UNUSED int argc,
                  h_output_image.pixels.data(),
                  0, nullptr, nullptr);
 
-    cp::write_image("assets/output.png", h_output_image);
+    cp::write_image("assets/hough_output.png", h_output_image);
 
 
     cp_log_shutdown();
