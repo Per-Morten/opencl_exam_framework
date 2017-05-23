@@ -2,6 +2,7 @@
 #include <opencl_utility.h>
 #include <opencl_api.h>
 #include <cp_image.h>
+#include <cp_params.h>
 
 cp::image
 create_expanded_image(const cp::image& source,
@@ -37,12 +38,14 @@ main(CP_UNUSED int argc,
     namespace cpcl = cp::opencl;
     cp_log_init();
 
-    cpcl::api api(CL_DEVICE_TYPE_CPU,
+    auto params = cp::parse_cmd(argc, argv, "assets/color_swirl.png",
+                                "assets/gaussian_output.png");
+    cpcl::api api(params.device_type,
                   "kernels/gaussian_blur.cl",
                   "-Ikernels/cp_lib/ -Werror -cl-std=CL1.2");
 
 
-    auto h_input_image = cp::load_image("assets/color_swirl_test.png",
+    auto h_input_image = cp::load_image(params.in_filepath.c_str(),
                                         LCT_RGBA);
 
     cl_image_format image_format;
@@ -127,7 +130,7 @@ main(CP_UNUSED int argc,
                  h_output_image.pixels.data(),
                  0, nullptr, nullptr),
 
-    cp::write_image("assets/gaussian_output.png",
+    cp::write_image(params.out_filepath.c_str(),
                     h_output_image,
                     LCT_RGBA);
 
