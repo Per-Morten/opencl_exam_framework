@@ -25,6 +25,7 @@ include_directories("${PROJECT_BINARY_DIR}"
                     "${CMAKE_SOURCE_DIR}/cp_lib"
                     "${CMAKE_SOURCE_DIR}/opencl_lib"
                     "${CMAKE_SOURCE_DIR}/third_party"
+                    "${CMAKE_SOURCE_DIR}/gaussian_blur"
                     "${CP_STANDARD_INCLUDES}")
 
 
@@ -49,5 +50,6 @@ subdirs(
     opencl_lib
     hough_transform
     third_party
+    gaussian_blur
 )
 
