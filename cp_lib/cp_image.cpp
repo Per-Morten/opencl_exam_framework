@@ -1,6 +1,5 @@
 #include <cp_image.h>
 #include <cp_lib.h>
-#include <lodepng.h>
 
 cp::image::image(const std::vector<std::uint8_t>& pixels_,
                  std::uint32_t height_,
@@ -12,7 +11,8 @@ cp::image::image(const std::vector<std::uint8_t>& pixels_,
 }
 
 cp::image
-cp::load_image(const char* filepath)
+cp::load_image(const char* filepath,
+               LodePNGColorType type)
 {
     std::vector<std::uint8_t> pixels;
     unsigned width;
@@ -22,7 +22,7 @@ cp::load_image(const char* filepath)
                                        width,
                                        height,
                                        filepath,
-                                       LCT_RGB);
+                                       type);
 
     if (err_c)
     {
@@ -40,14 +40,15 @@ cp::load_image(const char* filepath)
 
 void
 cp::write_image(const char* filepath,
-                const cp::image& image)
+                const cp::image& image,
+                LodePNGColorType type)
 {
     const auto err_c =
         lodepng::encode(filepath,
                         image.pixels,
                         static_cast<unsigned>(image.width),
                         static_cast<unsigned>(image.height),
-                        LCT_RGB);
+                        type);
 
     if (err_c)
     {

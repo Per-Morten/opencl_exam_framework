@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <cstdint>
+#include <lodepng.h>
+
 
 namespace cp
 {
@@ -42,7 +44,8 @@ namespace cp
     /// \return image read from filepath
     ///////////////////////////////////////////////////////
     image
-    load_image(const char* filepath);
+    load_image(const char* filepath,
+               LodePNGColorType type = LCT_RGB);
 
     ///////////////////////////////////////////////////////
     /// \brief  Saves an to the file indicated by
@@ -59,5 +62,6 @@ namespace cp
     ///////////////////////////////////////////////////////
     void
     write_image(const char* filepath,
-                const cp::image& image);
+                const cp::image& image,
+                LodePNGColorType type = LCT_RGB);
 }
