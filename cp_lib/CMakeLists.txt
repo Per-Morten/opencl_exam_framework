@@ -7,6 +7,7 @@ add_library(cp_lib
     cp_image.cpp
     cp_image.h
     cp_log.c
+    cp_params.h
 )
 
 target_link_libraries(cp_lib
